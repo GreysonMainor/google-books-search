@@ -19,6 +19,7 @@ function Header() {
     const [startIndex, setStartIndex] = useState(1);
     const [query, setQuery] = useState("");
     const [loading, setLoading] = useState(false);
+    const [cards, setCards] = useState([])
     const handleSubmit = () => {
         setLoading(true);
         if (maxResults > 40 || maxResults < 1) {
@@ -27,9 +28,21 @@ function Header() {
             axios.get(
                 `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=${maxResults}&startIndex=${startIndex}`
             ).then(res =>{
-                console.log(res.data)
+                if(startIndex >= res.data.totalItems || startIndex < 1) {
+                    toast.error(
+                        `Start index must be between 0 and ${res.data.totalItems}`
+                    );
+                } else {
+                    if (res.data.items.length > 0) {
+                        setCards(res.data.items)
+                        setLoading(false)
+                    }
+                }
+                //console.log(cards)
+               // console.log(res.data)
             }).catch(err => {
-                console.log(err)
+                setLoading(true)
+                toast.error(`${err.response.data.error.message}`)
             });
         }
     }
