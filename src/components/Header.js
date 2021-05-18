@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
     InputGroup,
     Input,
@@ -24,7 +24,9 @@ function Header() {
           </h1>
             <div className="text-input">
                 <InputGroup size="lg" className="mb-3">
-                    <Input placeholder="Book Search" />
+                    <Input placeholder="Book Search"
+                        value={query}
+                        onChange={e => setQuery(e.target.value)} />
                     <InputGroupAddon addonType="append">
                         <Button color="secondary" className="search-button">
                             <i className="fas fa-search"></i>
@@ -34,11 +36,19 @@ function Header() {
                 <div className="d-flex justify-content-center">
                     <FormGroup className="ml-5">
                         <Label for="maxResults" className="max-result-label">Max Results</Label>
-                        <Input type="number" id="maxResults" placeholder="Max Results" />
+                        <Input type="number"
+                            id="maxResults"
+                            placeholder="Max Results"
+                            value={maxResults}
+                            onChange={e => setMaxResults(e.target.value)} />
                     </FormGroup>
                     <FormGroup className="ml-5">
                         <Label for="startIndex" className="max-result-label">Start Index</Label>
-                        <Input type="number" id="maxResults" placeholder="Start Index" />
+                        <Input type="number" 
+                        id="maxResults"
+                         placeholder="Start Index" 
+                         value= {startIndex} 
+                    onChange= {e=> setStartIndex(e.target.value)}/>
                     </FormGroup>
                 </div>
 
